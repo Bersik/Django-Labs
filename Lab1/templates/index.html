@@ -1,0 +1,78 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block content %}
+    <div class="filter">
+        <div class="filter-header"><b>Filter</b></div>
+        <b>By producer</b><br>
+        {% for producer in producers %}
+            {% if producer.id in filtered_producers %}
+                <input type="checkbox" value="{{ producer.id }}" name="producer" title="123"
+                       onchange="producerChecked(value, this)" checked>{{ producer.name }}<br>
+            {% else %}
+                <input type="checkbox" value="{{ producer.id }}" name="producer" title="123"
+                       onchange="producerChecked(value, this)">{{ producer.name }}<br>
+            {% endif %}
+        {% endfor %}
+        <hr>
+        <b>By operation_system</b><br>
+        {% for operation_system in operation_systems %}
+            {% if operation_system.id in filtered_operations_systems %}
+                <input type="checkbox" value="{{ operation_system.id }}" name="operation_system" title="123"
+                       onchange="operations_systemChecked(value, this)" checked>{{ operation_system.name }}<br>
+            {% else %}
+                <input type="checkbox" value="{{ operation_system.id }}" name="operation_system" title="123"
+                       onchange="operations_systemChecked(value, this)">{{ operation_system.name }}<br>
+            {% endif %}
+        {% endfor %}
+        <hr>
+        <b>By type_phone</b><br>
+        {% for type_phone in types %}
+            {% if type_phone.id in filtered_types %}
+                <input type="checkbox" value="{{ type_phone.id }}" name="type_phone" title="123"
+                       onchange="type_phoneChecked(value, this)" checked>{{ type_phone.name }}<br>
+            {% else %}
+                <input type="checkbox" value="{{ type_phone.id }}" name="type_phone" title="123"
+                       onchange="type_phoneChecked(value, this)">{{ type_phone.name }}<br>
+            {% endif %}
+        {% endfor %}
+        <hr>
+        <b>By multimedia</b><br>
+    {{ multimedia }}
+            {% if multimedia == 'True' %}
+                <input type="checkbox" value="Multimedia" name="multimedia" title="123"
+                       onchange="multimediaChecked(value, this)" checked>-<br>
+            {% else %}
+                <input type="checkbox" value="Multimedia" name="multimedia" title="123"
+                       onchange="multimediaChecked(value, this)">+<br>
+            {% endif %}
+        <hr>
+        <b>By cost</b><br>
+        <div class="text-input">
+            <div class="filter-close" onclick="costChanged('from', '')">x</div>
+            From <input class="filter-input" type="text" name="from" title="From" onchange="costChanged(name, value)"
+                        value="{{ cost_from }}" align="right"><br/>
+            <div class="filter-close"  onclick="costChanged('to', '')">x</div>
+            To <input class="filter-input" type="text" name="to" title="To" onchange="costChanged(name, value)"
+                      value="{{ cost_to }}" align="right"><br/>
+        </div>
+    </div>
+
+    {% for phone in phones %}
+        <div class="store-item">
+            <div class="inner">
+                <img src="static/images/{{ phone.image }}" alt="{{ phone.name }}" class="store-image"
+                     onclick="zoomImage(this)"/>
+                <div class="store-item-title"><b>{{ phone.name }}</b></div>
+                <div class="store-item-button" onclick="buy('{{ phone.id }}')">Buy</div>
+                <p class="description"><b>Made from </b>{{ phone.producer.name }}<br/>
+                    <b>Operation system: </b>{{ phone.operation_system.name }}<br/>
+                    <b>Type: </b>{{ phone.type.name }}<br/>
+                    <b>Multimedia: </b>{{ phone.multimedia }}<br/>
+                    <b>Cost: </b>{{ phone.cost }}<br/>
+                    {{ phone.description }}</p>
+            </div>
+        </div>
+    {% endfor %}
+
+{% endblock %}

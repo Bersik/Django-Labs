@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block content %}
+    <div class="customer-data">
+        <p class="text-order">Please fill the information and press button below</p>
+        <input class="order-input" type="text" title="Name" placeholder="Name"/><br>
+        <input class="order-input" type="text" title="Email" placeholder="Email"/><br>
+        <input class="order-input" type="text" title="Phone" placeholder="Phone"/><br>
+        <input class="order-input" type="text" title="Address" placeholder="Address"/><br>
+        <div class="order-proceed button" onclick="showOrderMessage()">Proceed order</div>
+    </div>
+
+    <p class="text-order">By the way your cart is looking like:</p>
+    {% for phone in phones %}
+        <div class="store-item-order">
+            <div class="inner-order">
+                <img src="static/images/{{ phone.image }}" alt="{{ phone.name }}" class="store-image-order"
+                     onclick="zoomImage(this)"/>
+                <div class="store-item-title-order"><b>{{ phone.name }}</b></div>
+                <div class="store-item-button-order" onclick="remove('{{ phone.id }}')">Remove</div>
+                <p class="description-order"><b>Made from </b>{{ phone.producer.name }}<br/>
+                    <b>Operation system: </b>{{ phone.operation_system.name }}<br/>
+                    <b>Type: </b>{{ phone.type.name }}<br/>
+                    <b>Multimedia: </b>{{ phone.multimedia }}<br/>
+                    <b>Cost: </b>{{ phone.cost }}<br/>
+                    {{ phone.description }}</p>
+            </div>
+        </div>
+    {% endfor %}
+
+
+{% endblock %}

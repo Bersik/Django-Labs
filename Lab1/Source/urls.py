@@ -18,7 +18,7 @@ urlpatterns = [
 
     #  Filtration
     url(r'^producer', Shop.views.producer),
-    url(r'^operations_system', Shop.views.operations_system),
+    url(r'^operation_systems', Shop.views.operation_systems),
     url(r'^type_phone', Shop.views.type_phone),
     url(r'^cost', Shop.views.cost),
     url(r'^multimedia', Shop.views.multimedia),
