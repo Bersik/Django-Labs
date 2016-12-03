@@ -46,12 +46,12 @@ def home(request):
             'number_in_cart': cart.__len__(),
             'phones': phones,
 
-            'producer': Producer.objects.all(),
+            'producers': Producer.objects.all(),
             'filtered_producers': filtered_producers,
 
-            'operation_system': OperationSystem.objects.all(),
+            'operation_systems': OperationSystem.objects.all(),
             'filtered_operations_systems': filtered_operations_systems,
-            'type': Type.objects.all(),
+            'types': Type.objects.all(),
             'filtered_types': filtered_types,
             'cost_from': cost_from if cost_from is not None else '',
             'cost_to': cost_to if cost_to is not None else '',
@@ -124,7 +124,7 @@ def remove(request):
         {
             'year': datetime.now().year,
             'numberInCard': cart.__len__(),
-            'phones': Phones.objects.all()
+            'phones': Phone.objects.all()
         },
         RequestContext(request)
     )
@@ -152,7 +152,7 @@ def producer(request):
 
 
 @csrf_exempt
-def operations_system(request):
+def operation_systems(request):
     assert isinstance(request, HttpRequest)
     operations_system_id = uuid.UUID(request.POST.get('operations_system', ''))
     state = request.POST.get('state', '')
@@ -228,7 +228,7 @@ def multimedia(request):
     if state == '':
         multimedia_val = True
     else:
-        multimedia_val = bool(value)
+        multimedia_val = bool(state)
     return render(
         request,
         'index.html',
