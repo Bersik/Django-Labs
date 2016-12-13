@@ -1,4 +1,3 @@
-
 function zoomImage(image) {
     var modal = document.getElementById("modal");
     var modalImg = document.getElementById("zoomedImage");
@@ -31,13 +30,14 @@ function closeModal() {
 
 
 function buy(id) {
-    $.post("buy", {phone: id}, function () {
+    var div = document.getElementById(id + "-number");
+    $.post("buy", {phone_id: id, number: div.innerHTML}, function () {
         location.href = 'home';
     });
 }
 
 function remove(id) {
-    $.post("remove", {phone: id}, function () {
+    $.post("remove", {phone_id: id}, function () {
         location.href = 'order';
     });
 }
@@ -73,3 +73,16 @@ function costChanged(parameter, value) {
         location.href = 'home';
     });
 }
+
+function inc(id) {
+    var div = document.getElementById(id + "-number");
+    if (div.innerHTML * 1 < 99)
+        div.innerHTML = div.innerHTML * 1 + 1;
+}
+
+function dec(id) {
+    var div = document.getElementById(id + "-number");
+    if (1 < div.innerHTML * 1)
+        div.innerHTML = div.innerHTML * 1 - 1;
+}
+// endregion Main page

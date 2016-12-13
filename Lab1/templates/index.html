@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block content %}
+    {# Filters#}
     <div class="filter">
         <div class="filter-header"><b>Filter</b></div>
         <b>By producer</b><br>
@@ -38,21 +39,20 @@
         {% endfor %}
         <hr>
         <b>By multimedia</b><br>
-    {{ multimedia }}
-            {% if multimedia == 'True' %}
-                <input type="checkbox" value="Multimedia" name="multimedia" title="123"
-                       onchange="multimediaChecked(value, this)" checked>-<br>
-            {% else %}
-                <input type="checkbox" value="Multimedia" name="multimedia" title="123"
-                       onchange="multimediaChecked(value, this)">+<br>
-            {% endif %}
+        {% if multimedia %}
+            <input type="checkbox" value="Multimedia" name="multimedia" title="123"
+                   onchange="multimediaChecked(value, this)" checked>Multimedia<br>
+        {% else %}
+            <input type="checkbox" value="Multimedia" name="multimedia" title="123"
+                   onchange="multimediaChecked(value, this)">Multimedia<br>
+        {% endif %}
         <hr>
         <b>By cost</b><br>
         <div class="text-input">
             <div class="filter-close" onclick="costChanged('from', '')">x</div>
             From <input class="filter-input" type="text" name="from" title="From" onchange="costChanged(name, value)"
                         value="{{ cost_from }}" align="right"><br/>
-            <div class="filter-close"  onclick="costChanged('to', '')">x</div>
+            <div class="filter-close" onclick="costChanged('to', '')">x</div>
             To <input class="filter-input" type="text" name="to" title="To" onchange="costChanged(name, value)"
                       value="{{ cost_to }}" align="right"><br/>
         </div>
@@ -65,11 +65,15 @@
                      onclick="zoomImage(this)"/>
                 <div class="store-item-title"><b>{{ phone.name }}</b></div>
                 <div class="store-item-button" onclick="buy('{{ phone.id }}')">Buy</div>
+
+                <div class="store-item-updown button" onclick="inc('{{ phone.id }}')"><b>+</b></div>
+                <div class="store-item-title">${{ phone.cost }}</div>
+                <div id="{{ phone.id }}-number" class="store-item-number">1</div>
+                <div class="store-item-updown button" onclick="dec('{{ phone.id }}')"><b>-</b></div>
                 <p class="description"><b>Made from </b>{{ phone.producer.name }}<br/>
                     <b>Operation system: </b>{{ phone.operation_system.name }}<br/>
                     <b>Type: </b>{{ phone.type.name }}<br/>
                     <b>Multimedia: </b>{{ phone.multimedia }}<br/>
-                    <b>Cost: </b>{{ phone.cost }}<br/>
                     {{ phone.description }}</p>
             </div>
         </div>

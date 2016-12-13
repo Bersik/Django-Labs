@@ -124,6 +124,9 @@ body {
     margin-bottom: 0;
 }
 
+.store-item-number{
+    text-align: center;
+}
 
 
 /* endregion Main*/
